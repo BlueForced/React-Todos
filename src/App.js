@@ -1,10 +1,11 @@
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import { ThemeProvider } from "./context/theme";
+import TodoAdder from "./components/todoAdder";
 
 function App() {
   return (
     <ThemeProvider>
-      <Container
+      <Box
         sx={{
           display: "flex",
           position: "absolute",
@@ -15,8 +16,8 @@ function App() {
           height: "100%",
         }}
       >
-        <div>hi</div>
-      </Container>
+        <TodoAdder />
+      </Box>
     </ThemeProvider>
   );
 }
