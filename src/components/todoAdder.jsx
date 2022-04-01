@@ -23,6 +23,7 @@ const TodoAdder = ({ addTodo }) => {
           text: todoText,
           date: DateTime.fromFormat(todoDate, timeFormat).toUTC().toString(),
           id: Math.random().toString(),
+          isDone: false,
         });
       }}
     >
@@ -42,7 +43,7 @@ const TodoAdder = ({ addTodo }) => {
         value={todoText}
         onChange={(e) => setTodoText(e.target.value)}
       />
-      <Button variant="contained" color="success" sx={{ ml: 1 }} type="submit">
+      <Button variant="contained" color="info" sx={{ ml: 1 }} type="submit">
         Add Todo
       </Button>
     </StyledForm>
