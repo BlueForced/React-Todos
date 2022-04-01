@@ -43,7 +43,7 @@ const TodoAdder = ({ addTodo }) => {
         value={todoText}
         onChange={(e) => setTodoText(e.target.value)}
       />
-      <Button variant="contained" color="info" sx={{ ml: 1 }} type="submit">
+      <Button variant="contained" sx={{ ml: 1 }} type="submit">
         Add Todo
       </Button>
     </StyledForm>
