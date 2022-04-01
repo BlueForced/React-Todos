@@ -7,17 +7,23 @@ const StyledForm = styled.form`
   display: flex;
 `;
 
+const timeFormat = "yyyy-MM-dd'T'hh:mm";
+
 const TodoAdder = ({ addTodo }) => {
   const [todoText, setTodoText] = React.useState("");
   const [todoDate, setTodoDate] = React.useState(() =>
-    DateTime.now().plus({ hours: 1 }).toString().slice(0, -13)
+    DateTime.now().plus({ hours: 1 }).toFormat("yyyy-MM-dd'T'hh:mm")
   );
 
   return (
     <StyledForm
       onSubmit={(e) => {
         e.preventDefault();
-        addTodo({ text: todoText, date: todoDate });
+        addTodo({
+          text: todoText,
+          date: DateTime.fromFormat(todoDate, timeFormat).toUTC().toString(),
+          id: Math.random().toString(),
+        });
       }}
     >
       <TextField
