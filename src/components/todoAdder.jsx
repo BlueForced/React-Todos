@@ -15,16 +15,21 @@ const TodoAdder = ({ addTodo }) => {
     DateTime.now().plus({ hours: 1 }).toFormat("yyyy-MM-dd'T'hh:mm")
   );
 
+  const handleSubmit = () => {
+    addTodo({
+      text: todoText,
+      date: DateTime.fromFormat(todoDate, timeFormat).toUTC().toString(),
+      id: Math.random().toString(),
+      isDone: false,
+    });
+    setTodoText("");
+  };
+
   return (
     <StyledForm
       onSubmit={(e) => {
         e.preventDefault();
-        addTodo({
-          text: todoText,
-          date: DateTime.fromFormat(todoDate, timeFormat).toUTC().toString(),
-          id: Math.random().toString(),
-          isDone: false,
-        });
+        handleSubmit();
       }}
     >
       <TextField
@@ -41,7 +46,10 @@ const TodoAdder = ({ addTodo }) => {
         required
         multiline
         value={todoText}
-        onChange={(e) => setTodoText(e.target.value)}
+        onChange={(e) => {
+          const val = e.target.value;
+          val.at(-1) !== "\n" ? setTodoText(val) : handleSubmit(todoText);
+        }}
       />
       <Button variant="contained" sx={{ ml: 1 }} type="submit">
         Add Todo
