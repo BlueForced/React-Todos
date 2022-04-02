@@ -20,7 +20,7 @@ const TodoAdder = ({ addTodo }) => {
       text: todoText,
       date: DateTime.fromFormat(todoDate, timeFormat).toUTC().toString(),
       id: Math.random().toString(),
-      isDone: false,
+      dateDone: null,
     });
     setTodoText("");
   };
