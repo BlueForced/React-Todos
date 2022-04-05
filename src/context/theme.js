@@ -15,7 +15,7 @@ const ThemeProvider = ({ children }) => {
   return (
     <ThemeContext.Provider value={[theme, setTheme]}>
       <MuiThemeProvider theme={currentTheme}>
-        <CssBaseline />
+        <CssBaseline enableColorScheme />
         {children}
       </MuiThemeProvider>
     </ThemeContext.Provider>
