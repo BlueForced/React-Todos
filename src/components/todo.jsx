@@ -122,7 +122,15 @@ const Todo = ({ todo, todos, setTodos }) => {
   }
 
   return (
-    <ListItem divider sx={{ display: "flex", justifyContent: "space-between" }}>
+    <ListItem
+      divider
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        overflowWrap: "break-word",
+        wordBreak: "break-all",
+      }}
+    >
       <Box
         sx={{
           display: "flex",
@@ -130,7 +138,7 @@ const Todo = ({ todo, todos, setTodos }) => {
           alignItems: "flex-start",
         }}
       >
-        <TypoComponent>{todo.text}</TypoComponent>
+        <TypoComponent sx={{ mr: 1 }}>{todo.text}</TypoComponent>
         <TimeTypo variant="caption">Date Due: {dateDue}</TimeTypo>
         {dateDone && (
           <TimeTypo variant="caption">Date Done: {dateDone}</TimeTypo>
