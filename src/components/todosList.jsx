@@ -1,5 +1,5 @@
 import { List, Paper, Typography } from "@mui/material";
-import Todo from "./todo";
+import Todo from "./todo/todo";
 
 const TodosList = ({ todos, setTodos }) => {
   return (
