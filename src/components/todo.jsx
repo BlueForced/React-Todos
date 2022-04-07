@@ -43,7 +43,7 @@ const StrikeAnimationTypo = styled(Typography)`
     height: 1px;
     background: ${({ theme }) => theme.palette.text.primary};
     animation-name: strike;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
     animation-timing-function: linear;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
@@ -113,7 +113,7 @@ const Todo = ({ todo, todos, setTodos }) => {
       TypoComponent = StrikeAnimationTypo;
       setTimeout(() => {
         isMounted.current && setIsLastDone(false);
-      }, 500);
+      }, 1000);
     } else {
       TypoComponent = StrikeTypo;
     }
