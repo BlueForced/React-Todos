@@ -10,7 +10,10 @@ const ClearOptions = ({ todos, setTodos }) => {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "row-reverse", mt: 1 }}>
+    <Box>
+      <Button variant="contained" color="error" onClick={handleClearAll}>
+        Clear All
+      </Button>
       <Button
         variant="contained"
         sx={{ ml: 1 }}
@@ -18,9 +21,6 @@ const ClearOptions = ({ todos, setTodos }) => {
         onClick={handleClearDone}
       >
         Clear Done
-      </Button>
-      <Button variant="contained" color="error" onClick={handleClearAll}>
-        Clear All
       </Button>
     </Box>
   );

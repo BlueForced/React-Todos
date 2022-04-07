@@ -9,11 +9,18 @@ const ThemeContext = React.createContext();
 ThemeContext.displayName = "themeCtx";
 
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = React.useState("dark");
+  const [theme, setTheme] = React.useState(
+    () => localStorage.getItem("todosTheme") || "dark"
+  );
   const currentTheme = createTheme({ palette: { mode: theme } });
 
+  const handleSetTheme = (newTheme) => {
+    setTheme(newTheme);
+    localStorage.setItem("todosTheme", newTheme);
+  };
+
   return (
-    <ThemeContext.Provider value={[theme, setTheme]}>
+    <ThemeContext.Provider value={[theme, handleSetTheme]}>
       <MuiThemeProvider theme={currentTheme}>
         <CssBaseline enableColorScheme />
         {children}
