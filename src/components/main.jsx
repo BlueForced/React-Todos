@@ -24,10 +24,8 @@ const Main = () => {
 
   return (
     <Box sx={{ maxWidth: "605px" }}>
-      <TodoAdder addTodo={(todo) => setTodos([todo, ...todos])} />
-      {todos.length ? (
-        <Sorter setTodos={setTodos} sortBy={sortBy} setSortBy={setSortBy} />
-      ) : null}
+      <TodoAdder addTodo={(todo) => handleChangeTodos([todo, ...todos])} />
+      {todos.length ? <Sorter sortBy={sortBy} setSortBy={setSortBy} /> : null}
       <TodoList todos={sortedTodos} setTodos={handleChangeTodos} />
       {todos.length ? (
         <ClearOptions todos={todos} setTodos={handleChangeTodos} />
