@@ -1,5 +1,12 @@
 import React from "react";
-import { TextField, Button, Slider, Box, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Slider,
+  Box,
+  Typography,
+  Divider,
+} from "@mui/material";
 import { DateTime } from "luxon";
 import styled from "@emotion/styled";
 import importanceTitles from "./importanceTitles";
@@ -88,6 +95,7 @@ const TodoAdder = ({ addTodo }) => {
           }}
         />
       </Box>
+      <Divider sx={{ mt: 2 }} />
     </form>
   );
 };
