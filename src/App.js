@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { ThemeProvider } from "./context/theme";
-import TodoAdder from "./components/todoAdder";
+import Main from "./components/main";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           height: "100%",
         }}
       >
-        <TodoAdder />
+        <Main />
       </Box>
     </ThemeProvider>
   );
