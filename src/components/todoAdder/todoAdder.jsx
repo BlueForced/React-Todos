@@ -42,7 +42,7 @@ const TodoAdder = ({ addTodo }) => {
       <Box sx={{ display: "flex" }}>
         <TextField
           id="datetime-local"
-          label="Due time"
+          label="Due Time"
           type="datetime-local"
           sx={{ width: 250, mr: 1 }}
           value={todoDate}
