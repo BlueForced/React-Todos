@@ -13,7 +13,7 @@ const Main = () => {
   });
   const [sortBy, setSortBy] = React.useState(sorts.dateAdded);
 
-  const handleSetTodos = (newTodos) => {
+  const handleChangeTodos = (newTodos) => {
     setTodos(newTodos);
     localStorage.setItem("todos", JSON.stringify(newTodos));
   };
@@ -23,13 +23,15 @@ const Main = () => {
   sortedTodos.sort(sorterFuncs.isDone);
 
   return (
-    <Box>
+    <Box sx={{ maxWidth: "605px" }}>
       <TodoAdder addTodo={(todo) => setTodos([todo, ...todos])} />
       {todos.length ? (
         <Sorter setTodos={setTodos} sortBy={sortBy} setSortBy={setSortBy} />
       ) : null}
-      <TodoList todos={sortedTodos} setTodos={handleSetTodos} />
-      {todos.length ? <ClearOptions setTodos={setTodos} /> : null}
+      <TodoList todos={sortedTodos} setTodos={handleChangeTodos} />
+      {todos.length ? (
+        <ClearOptions todos={todos} setTodos={handleChangeTodos} />
+      ) : null}
     </Box>
   );
 };

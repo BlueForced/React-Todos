@@ -1,8 +1,8 @@
 import { Box, Button } from "@mui/material";
 
-const ClearOptions = ({ setTodos }) => {
+const ClearOptions = ({ todos, setTodos }) => {
   const handleClearDone = () => {
-    setTodos((todos) => todos.filter((todo) => !todo.dateDone));
+    setTodos(todos.filter((todo) => !todo.dateDone));
   };
 
   const handleClearAll = () => {
