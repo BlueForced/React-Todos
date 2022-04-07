@@ -18,7 +18,7 @@ const TodosList = ({ todos, setTodos }) => {
     >
       {todos.length ? (
         <List disablePadding sx={{ flexGrow: 1 }}>
-          {todos.map((todo, index) => (
+          {todos.map((todo) => (
             <Todo todo={todo} todos={todos} setTodos={setTodos} key={todo.id} />
           ))}
         </List>

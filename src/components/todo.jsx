@@ -106,7 +106,7 @@ const Todo = ({ todo, todos, setTodos }) => {
   const handleDelete = () =>
     setTodos(todos.filter((filterTodo) => filterTodo.id !== todo.id));
 
-  let TypoComponent = null;
+  let TypoComponent = Typography;
 
   if (dateDone) {
     if (isLastDone) {
@@ -117,8 +117,6 @@ const Todo = ({ todo, todos, setTodos }) => {
     } else {
       TypoComponent = StrikeTypo;
     }
-  } else {
-    TypoComponent = Typography;
   }
 
   return (
