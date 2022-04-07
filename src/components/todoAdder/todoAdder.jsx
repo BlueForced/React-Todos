@@ -28,7 +28,7 @@ const TodoAdder = ({ addTodo }) => {
 
   const handleSubmit = () => {
     addTodo({
-      text: todoText,
+      text: todoText.trim(),
       dateDue: DateTime.fromFormat(todoDate, timeFormat).toUTC().toString(),
       id: Math.random().toString(),
       dateDone: null,
