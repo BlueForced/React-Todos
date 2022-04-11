@@ -44,13 +44,9 @@ const ButtonTooltip = ({ children, ...props }) => {
 const Todo = ({ todo, todos, setTodos }) => {
   const [dateDue, dateDone] = React.useMemo(
     () => [
-      DateTime.fromISO(todo.dateDue)
-        .toLocal()
-        .toLocaleString(DateTime.DATETIME_SHORT),
+      DateTime.fromISO(todo.dateDue).toLocaleString(DateTime.DATETIME_SHORT),
       todo.dateDone &&
-        DateTime.fromISO(todo.dateDone)
-          .toLocal()
-          .toLocaleString(DateTime.DATETIME_SHORT),
+        DateTime.fromISO(todo.dateDone).toLocaleString(DateTime.DATETIME_SHORT),
     ],
     [todo]
   );
@@ -69,7 +65,7 @@ const Todo = ({ todo, todos, setTodos }) => {
 
   const handleDone = () => {
     setIsLastDone(true);
-    setTodo({ dateDone: DateTime.now().toUTC().toString() });
+    setTodo({ dateDone: DateTime.now().toUTC().toISO() });
   };
 
   const handleUndo = () => {
