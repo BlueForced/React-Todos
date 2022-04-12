@@ -11,20 +11,24 @@ import { DateTime } from "luxon";
 import styled from "@emotion/styled";
 import importanceTitles from "./importanceTitles";
 
-const timeFormat = "yyyy-MM-dd'T'hh:mm";
-
 const StyledSlider = styled(Slider)(({ theme }) => ({
   "& .MuiSlider-valueLabel": {
     background: theme.palette.mode === "dark" ? "black" : "#ededed",
   },
 }));
 
+const timeFormat = "yyyy-MM-dd'T'HH:mm";
+
+const date = (plus = {}) => DateTime.now().plus(plus).toFormat(timeFormat);
+
 const TodoAdder = ({ addTodo }) => {
   const [todoText, setTodoText] = React.useState("");
-  const [todoDate, setTodoDate] = React.useState(() =>
-    DateTime.now().plus({ hours: 1 }).toFormat("yyyy-MM-dd'T'hh:mm")
-  );
+  const [todoDate, setTodoDate] = React.useState(() => date({ hours: 1 }));
   const [importance, setImportance] = React.useState(2);
+  const [minDate, maxDate] = React.useMemo(
+    () => [date(), date({ years: 1 })],
+    []
+  );
 
   const handleSubmit = () => {
     addTodo({
@@ -51,9 +55,14 @@ const TodoAdder = ({ addTodo }) => {
           id="datetime-local"
           label="Due Time"
           type="datetime-local"
+          required
           sx={{ width: 250, mr: 1 }}
           value={todoDate}
           onChange={(e) => setTodoDate(e.target.value)}
+          inputProps={{
+            min: minDate,
+            max: maxDate,
+          }}
         />
         <TextField
           variant="outlined"

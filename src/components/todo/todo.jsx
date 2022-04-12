@@ -44,9 +44,9 @@ const ButtonTooltip = ({ children, ...props }) => {
 const Todo = ({ todo, todos, setTodos }) => {
   const [dateDue, dateDone] = React.useMemo(
     () => [
-      DateTime.fromISO(todo.dateDue).toLocaleString(DateTime.DATETIME_SHORT),
+      DateTime.fromISO(todo.dateDue).toLocaleString(DateTime.TIME_SIMPLE),
       todo.dateDone &&
-        DateTime.fromISO(todo.dateDone).toLocaleString(DateTime.DATETIME_SHORT),
+        DateTime.fromISO(todo.dateDone).toLocaleString(DateTime.TIME_SIMPLE),
     ],
     [todo]
   );

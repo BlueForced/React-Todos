@@ -92,9 +92,13 @@ const ClearOptions = ({ todosTab, todos, setTodos }) => {
     setTodos(newTodos);
   };
 
-  const handleClearTab = () => setTodos();
+  const handleClearTab = () => {
+    const newTodos = { ...todos };
+    delete newTodos[todosTab];
+    setTodos(newTodos);
+  };
 
-  const handleClearAll = () => setTodos([]);
+  const handleClearAll = () => setTodos({});
 
   return (
     <Box>

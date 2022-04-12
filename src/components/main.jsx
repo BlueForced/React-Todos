@@ -40,8 +40,12 @@ const Main = () => {
     return finalTodos;
   });
 
-  const getLatestTodosTab = (todosArg) =>
-    Object.keys(todosArg).reduce((a, b) => (a > b ? a : b));
+  const getLatestTodosTab = (todosArg) => {
+    const keys = Object.keys(todosArg);
+    return keys.length
+      ? Object.keys(todosArg).reduce((a, b) => (a > b ? a : b))
+      : undefined;
+  };
 
   const [todosTab, setTodosTab] = React.useState(
     () => localStorage.getItem("todosTab") || getLatestTodosTab(todos)
@@ -49,12 +53,12 @@ const Main = () => {
   const [sortBy, setSortBy] = React.useState(sorts.dateAdded);
   const [theme, setTheme] = useTheme();
 
-  const renewListener = (newTodos) => {
+  React.useEffect(() => {
     window.onbeforeunload = () => {
       const todosArr = [];
-      Object.keys(newTodos).map((key) =>
+      Object.keys(todos).map((key) =>
         todosArr.push(
-          ...newTodos[key].todos.map((todo) => ({
+          ...todos[key].todos.map((todo) => ({
             ...todo,
             dateDue: DateTime.fromISO(todo.dateDue).toUTC().toISO(),
             dateAdded: DateTime.fromISO(todo.dateAdded).toUTC().toISO(),
@@ -63,7 +67,7 @@ const Main = () => {
       );
       localStorage.setItem("todos", JSON.stringify(todosArr));
     };
-  };
+  }, [todos]);
 
   const handleSetTodosTab = (tab) => {
     setTodosTab(tab);
@@ -71,26 +75,23 @@ const Main = () => {
   };
 
   const applyNewTodos = (newTodos) => {
-    setTodos(newTodos);
-    renewListener(newTodos);
-  };
+    const todosObj = { ...newTodos };
 
-  const handleChangeTodos = (newTodos) => {
-    const newTodosObj = {
-      ...todos,
-    };
-
-    if (newTodos.length) {
-      newTodosObj[todosTab] = { ...todos[todosTab], todos: newTodos };
-    } else {
-      delete newTodosObj[todosTab];
-      const tab = getLatestTodosTab(newTodosObj);
+    if (!todosObj[todosTab]?.todos?.length) {
+      delete todosObj[todosTab];
+      const tab = getLatestTodosTab(todosObj);
       setTodosTab(tab);
       localStorage.setItem("todosTab", tab);
     }
 
-    applyNewTodos(newTodosObj);
+    setTodos(todosObj);
   };
+
+  const handleChangeTodos = (newTodos) =>
+    applyNewTodos({
+      ...todos,
+      [todosTab]: { ...todos[todosTab], todos: newTodos },
+    });
 
   const hanldeAddTodo = (newTodo) => {
     const todoDay = newTodo.dateDue.slice(0, 10);
@@ -108,10 +109,7 @@ const Main = () => {
     }
 
     setTodos(newTodos);
-    renewListener(newTodos);
   };
-
-  // pass a different todos change handler to ClearOptions
 
   const sortedTodos = [...(todos[todosTab]?.todos || [])];
   sortedTodos.sort(sorterFuncs[sortBy]);
