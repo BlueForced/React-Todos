@@ -12,6 +12,8 @@ const TodosList = ({ todos, setTodos }) => {
         overflowY: "auto",
         display: "flex",
         justifyContent: "center",
+        backdropFilter: "blur(5px)",
+        opacity: 0.92,
       }}
       elevation={1}
       square
