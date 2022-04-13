@@ -3,12 +3,16 @@ import { Chip, Typography } from "@mui/material";
 import { DateTime } from "luxon";
 import ReactDOM from "react-dom";
 
-const DayChip = ({ selectedDay, chipDay, setDay }) => {
+const DayChip = ({ currentYear, selectedDay, chipDay, setDay }) => {
   const chipRef = React.useRef();
-  const day = React.useMemo(
-    () => "'" + DateTime.fromISO(chipDay).toLocal().toFormat("yy LLL dd"),
-    [chipDay]
-  );
+  const day = React.useMemo(() => {
+    const date = DateTime.fromISO(chipDay);
+    let format = "LLL dd";
+    if (date.year !== currentYear) {
+      format = "’yy LLL dd";
+    }
+    return date.toLocal().toFormat(format);
+  }, [chipDay, currentYear]);
 
   React.useLayoutEffect(() => {
     if (selectedDay === chipDay) {

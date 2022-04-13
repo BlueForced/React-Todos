@@ -2,6 +2,7 @@ import React from "react";
 import DayChip from "./dayChip";
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
+import { DateTime } from "luxon";
 
 const StyledBox = styled(Box)`
   display: flex;
@@ -26,6 +27,8 @@ const StyledBox = styled(Box)`
 `;
 
 const DayPicker = ({ days, day, setDay }) => {
+  const currYear = React.useMemo(() => DateTime.now().year, []);
+
   return (
     <StyledBox
       sx={{
@@ -39,6 +42,7 @@ const DayPicker = ({ days, day, setDay }) => {
           selectedDay={day}
           setDay={setDay}
           key={chipDay}
+          currentYear={currYear}
         />
       ))}
     </StyledBox>
