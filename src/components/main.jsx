@@ -65,7 +65,7 @@ const Main = () => {
   }, [todos]);
 
   React.useLayoutEffect(() => {
-    if (Object.keys(todos) && !todos[todosTab]?.todos?.length) {
+    if (Object.keys(todos).length && !todos[todosTab]?.todos?.length) {
       const newTodos = { ...todos };
       delete newTodos[todosTab];
       setTodos(newTodos);
