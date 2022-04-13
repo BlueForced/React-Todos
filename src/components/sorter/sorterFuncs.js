@@ -11,18 +11,6 @@ const sorterFuncs = {
     a.dateDue < b.dateDue ? -1 : a.dateDue > b.dateDue ? 1 : 0,
   importance: (a, b) =>
     a.importance < b.importance ? 1 : a.importance > b.importance ? -1 : 0,
-  isDone: (a, b) => {
-    if (a.dateDone) {
-      if (b.dateDone) {
-        return 0;
-      }
-      return 1;
-    }
-    if (b.dateDone) {
-      return -1;
-    }
-    return 0;
-  },
 };
 
 export { sorts, sorterFuncs };

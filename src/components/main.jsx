@@ -5,50 +5,45 @@ import TodoList from "./todosList";
 import Sorter from "./sorter/sorter";
 import { sorterFuncs, sorts } from "./sorter/sorterFuncs.js";
 import ClearOptions from "./clearOptions.jsx";
-import DayPicker from "./dayPicker";
+import DayPicker from "./dayPicker/dayPicker";
 import { useTheme } from "../context/theme";
 import { DateTime } from "luxon";
 
-const groupBy = (list, keyGetter) => {
-  const out = {};
-  list.forEach((x) => {
-    const key = keyGetter(x);
-    out[key] = [...(out[key] || []), x];
-  });
-  return out;
+const getLatestTab = (todosArg) => {
+  const keys = Object.keys(todosArg);
+  return keys.length
+    ? Object.keys(todosArg).reduce((a, b) => (a > b ? a : b))
+    : undefined;
 };
+
+const localDate = (date) => DateTime.fromISO(date).toLocal().toISO();
 
 const Main = () => {
   // get a working groupBy function
   const [todos, setTodos] = React.useState(() => {
+    const out = {};
     const localTodos = localStorage.getItem("todos");
-    if (!localTodos || !Object.keys(JSON.parse(localTodos)).length) return {};
+    if (!localTodos || !Object.keys(JSON.parse(localTodos)).length) return out;
 
-    const timeTodos = groupBy(
-      JSON.parse(localTodos).map((todo) => ({
+    JSON.parse(localTodos)
+      .map((todo) => ({
         ...todo,
-        dateDue: DateTime.fromISO(todo.dateDue).toLocal().toISO(),
-        dateAdded: DateTime.fromISO(todo.dateAdded).toLocal().toISO(),
-      })),
-      (todo) => DateTime.fromISO(todo.dateDue).toLocal().toISO().slice(0, 10)
-    );
+        dateDue: localDate(todo.dateDue),
+        dateAdded: localDate(todo.dateAdded),
+      }))
+      .forEach((todo) => {
+        const key = localDate(todo.dateDue).slice(0, 10);
+        out[key] = {
+          id: out[key]?.id || Math.random().toString(),
+          todos: [...(out[key]?.todos || []), todo],
+        };
+      });
 
-    const finalTodos = {};
-    Object.keys(timeTodos).forEach((key) => {
-      finalTodos[key] = { todos: timeTodos[key], id: Math.random().toString() };
-    });
-    return finalTodos;
+    return out;
   });
 
-  const getLatestTodosTab = (todosArg) => {
-    const keys = Object.keys(todosArg);
-    return keys.length
-      ? Object.keys(todosArg).reduce((a, b) => (a > b ? a : b))
-      : undefined;
-  };
-
   const [todosTab, setTodosTab] = React.useState(
-    () => localStorage.getItem("todosTab") || getLatestTodosTab(todos)
+    () => localStorage.getItem("todosTab") || getLatestTab(todos)
   );
   const [sortBy, setSortBy] = React.useState(sorts.dateAdded);
   const [theme, setTheme] = useTheme();
@@ -69,26 +64,21 @@ const Main = () => {
     };
   }, [todos]);
 
-  const handleSetTodosTab = (tab) => {
-    setTodosTab(tab);
-    localStorage.setItem("todosTab", tab);
-  };
-
-  const applyNewTodos = (newTodos) => {
-    const todosObj = { ...newTodos };
-
-    if (!todosObj[todosTab]?.todos?.length) {
-      delete todosObj[todosTab];
-      const tab = getLatestTodosTab(todosObj);
-      setTodosTab(tab);
-      localStorage.setItem("todosTab", tab);
+  React.useLayoutEffect(() => {
+    if (Object.keys(todos) && !todos[todosTab]?.todos?.length) {
+      const newTodos = { ...todos };
+      delete newTodos[todosTab];
+      setTodos(newTodos);
+      setTodosTab(getLatestTab(newTodos));
     }
+  }, [todos, todosTab]);
 
-    setTodos(todosObj);
-  };
+  React.useEffect(() => {
+    localStorage.setItem("todosTab", todosTab);
+  }, [todosTab]);
 
   const handleChangeTodos = (newTodos) =>
-    applyNewTodos({
+    setTodos({
       ...todos,
       [todosTab]: { ...todos[todosTab], todos: newTodos },
     });
@@ -107,13 +97,11 @@ const Main = () => {
     if (todosTab !== todoDay) {
       setTodosTab(todoDay);
     }
-
     setTodos(newTodos);
   };
 
   const sortedTodos = [...(todos[todosTab]?.todos || [])];
   sortedTodos.sort(sorterFuncs[sortBy]);
-  sortedTodos.sort(sorterFuncs.isDone);
 
   const sortedDays = Object.keys(todos);
   sortedDays.sort((a, b) => (a > b ? 1 : a < b ? -1 : 0));
@@ -123,11 +111,7 @@ const Main = () => {
       <TodoAdder addTodo={hanldeAddTodo} />
       {Object.keys(todos).length ? (
         <>
-          <DayPicker
-            days={sortedDays}
-            day={todosTab}
-            setDay={handleSetTodosTab}
-          />
+          <DayPicker days={sortedDays} day={todosTab} setDay={setTodosTab} />
           <Sorter sortBy={sortBy} setSortBy={setSortBy} />
         </>
       ) : null}
@@ -142,9 +126,9 @@ const Main = () => {
         {Object.keys(todos).length ? (
           <ClearOptions
             todosTab={todosTab}
-            setTodosTab={handleSetTodosTab}
+            setTodosTab={setTodosTab}
             todos={todos}
-            setTodos={applyNewTodos}
+            setTodos={setTodos}
           />
         ) : null}
       </Box>
