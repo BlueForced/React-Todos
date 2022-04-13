@@ -16,7 +16,7 @@ const MenuBox = ({ icon: Icon, children }) => {
 
 const Sorter = ({ sortBy, setSortBy }) => {
   return (
-    <Box sx={{ mt: 3 }}>
+    <Box sx={{ mt: 2 }}>
       <TextField
         select
         value={sortBy}
