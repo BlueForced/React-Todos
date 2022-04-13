@@ -19,7 +19,6 @@ const getLatestTab = (todosArg) => {
 const localDate = (date) => DateTime.fromISO(date).toLocal().toISO();
 
 const Main = () => {
-  // get a working groupBy function
   const [todos, setTodos] = React.useState(() => {
     const out = {};
     const localTodos = localStorage.getItem("todos");
