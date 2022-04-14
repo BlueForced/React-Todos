@@ -9,7 +9,7 @@ const TodosList = ({ todos, setTodos }) => {
         pb: 1,
         minHeight: "15vh",
         maxHeight: "35vh",
-        overflowY: "overlay",
+        overflowY: "auto",
         display: "flex",
         justifyContent: "center",
         backdropFilter: "blur(5px)",
