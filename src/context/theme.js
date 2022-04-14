@@ -18,6 +18,8 @@ const lightTheme = {
     hover: grey[500],
   },
   list: "#ffffff99",
+  backgroundImage: `url(${LightBg})`,
+  backgroundColor: "#dddddd",
 };
 
 const darkTheme = {
@@ -26,6 +28,8 @@ const darkTheme = {
     hover: "#f3e5f577",
   },
   list: "#12121299",
+  backgroundImage: `url(${DarkBg})`,
+  backgroundColor: "#c962cd",
 };
 
 const ThemeProvider = ({ children }) => {
@@ -48,7 +52,8 @@ const ThemeProvider = ({ children }) => {
         <GlobalStyles
           styles={{
             body: {
-              backgroundImage: `url(${theme === "dark" ? DarkBg : LightBg})`,
+              backgroundColor: currentTheme.palette.custom.backgroundColor,
+              backgroundImage: currentTheme.palette.custom.backgroundImage,
             },
           }}
         />
