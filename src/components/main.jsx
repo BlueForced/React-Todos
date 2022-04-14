@@ -120,6 +120,7 @@ const Main = () => {
           variant="outlined"
           color="secondary"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          sx={{ textShadow: (theme) => theme.palette.custom.textShadow }}
         >
           {theme === "dark" ? "light" : "dark"} Theme
         </Button>

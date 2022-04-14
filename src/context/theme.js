@@ -20,6 +20,7 @@ const lightTheme = {
   list: "#ffffff99",
   backgroundImage: `url(${LightBg})`,
   backgroundColor: "#dddddd",
+  textShadow: "",
 };
 
 const darkTheme = {
@@ -30,6 +31,7 @@ const darkTheme = {
   list: "#12121299",
   backgroundImage: `url(${DarkBg})`,
   backgroundColor: "#c962cd",
+  textShadow: "1px 1px #00000044",
 };
 
 const ThemeProvider = ({ children }) => {
@@ -54,6 +56,12 @@ const ThemeProvider = ({ children }) => {
             body: {
               backgroundColor: currentTheme.palette.custom.backgroundColor,
               backgroundImage: currentTheme.palette.custom.backgroundImage,
+            },
+            input: {
+              textShadow: currentTheme.palette.custom.textShadow,
+            },
+            ".MuiInputLabel-root, .MuiInputBase-input": {
+              textShadow: currentTheme.palette.custom.textShadow,
             },
           }}
         />
