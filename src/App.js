@@ -1,6 +1,7 @@
 import Box from "@mui/material/Box";
 import { ThemeProvider } from "./context/theme";
 import Main from "./components/main";
+import Footer from "./components/footer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       >
         <Main />
       </Box>
+      <Footer />
     </ThemeProvider>
   );
 }
