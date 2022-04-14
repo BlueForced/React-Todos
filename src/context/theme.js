@@ -60,7 +60,7 @@ const ThemeProvider = ({ children }) => {
             input: {
               textShadow: currentTheme.palette.custom.textShadow,
             },
-            ".MuiInputLabel-root, .MuiInputBase-input": {
+            ".MuiInputLabel-root, .MuiInputBase-input, .MuiButton-outlined": {
               textShadow: currentTheme.palette.custom.textShadow,
             },
           }}

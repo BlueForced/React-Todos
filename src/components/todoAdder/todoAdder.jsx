@@ -80,7 +80,11 @@ const TodoAdder = ({ addTodo }) => {
         </Button>
       </Box>
       <Box sx={{ display: "flex", mr: 5, ml: 5, mt: 1 }}>
-        <Typography sx={{ mr: 2 }}>Importance:</Typography>
+        <Typography
+          sx={{ mr: 2, textShadow: ({ palette }) => palette.custom.textShadow }}
+        >
+          Importance:
+        </Typography>
         <StyledSlider
           value={importance}
           onChange={(e, val) => setImportance(val)}
