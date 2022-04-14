@@ -9,11 +9,11 @@ const TodosList = ({ todos, setTodos }) => {
         pb: 1,
         minHeight: "15vh",
         maxHeight: "35vh",
-        overflowY: "auto",
+        overflowY: "overlay",
         display: "flex",
         justifyContent: "center",
         backdropFilter: "blur(5px)",
-        opacity: 0.92,
+        backgroundColor: (theme) => theme.palette.custom.list,
       }}
       elevation={1}
       square

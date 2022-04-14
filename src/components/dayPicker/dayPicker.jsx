@@ -17,12 +17,12 @@ const StyledBox = styled(Box)`
   }
 
   ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.palette.grey[400]};
+    background: ${({ theme }) => theme.palette.custom.dayPickerScroll.thumb};
     border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: ${({ theme }) => theme.palette.grey[500]};
+    background: ${({ theme }) => theme.palette.custom.dayPickerScroll.hover};
   }
 `;
 

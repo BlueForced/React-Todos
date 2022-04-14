@@ -118,6 +118,7 @@ const Main = () => {
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
         <Button
           variant="outlined"
+          color="secondary"
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
           {theme === "dark" ? "light" : "dark"} Theme
