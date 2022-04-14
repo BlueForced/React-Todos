@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/react-todos/static/js/main.42d1dc11.js",
+    "static/media/light.jpg": "/react-todos/static/media/light.459de4eaa9cb3788f468.jpg",
+    "static/media/dark.jpg": "/react-todos/static/media/dark.b118886b97e13dcaec76.jpg",
+    "index.html": "/react-todos/index.html",
+    "main.42d1dc11.js.map": "/react-todos/static/js/main.42d1dc11.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.42d1dc11.js"
+  ]
+}
