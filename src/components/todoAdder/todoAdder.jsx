@@ -6,6 +6,7 @@ import {
   Box,
   Typography,
   Divider,
+  useTheme,
 } from "@mui/material";
 import { DateTime } from "luxon";
 import styled from "@emotion/styled";
@@ -29,6 +30,7 @@ const TodoAdder = ({ addTodo }) => {
     () => [date(), date({ years: 1 })],
     []
   );
+  const { isMobile } = useTheme();
 
   const handleSubmit = () => {
     addTodo({
@@ -50,19 +52,33 @@ const TodoAdder = ({ addTodo }) => {
         handleSubmit();
       }}
     >
-      <Box sx={{ display: "flex" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          ml: +isMobile,
+          mr: +isMobile,
+          mt: +isMobile,
+        }}
+      >
         <TextField
           id="datetime-local"
           label="Due Time"
           type="datetime-local"
           required
-          sx={{ width: 250, mr: 1 }}
+          sx={{
+            width: isMobile ? undefined : 250,
+            mr: +!isMobile,
+            mt: isMobile ? 2 : 0,
+            order: 0,
+          }}
           value={todoDate}
           onChange={(e) => setTodoDate(e.target.value)}
           inputProps={{
             min: minDate,
             max: maxDate,
           }}
+          fullWidth={isMobile}
         />
         <TextField
           variant="outlined"
@@ -74,12 +90,29 @@ const TodoAdder = ({ addTodo }) => {
             const val = e.target.value;
             val.at(-1) !== "\n" ? setTodoText(val) : handleSubmit(todoText);
           }}
+          fullWidth={isMobile}
+          sx={{
+            order: isMobile ? -1 : 0,
+          }}
         />
-        <Button variant="contained" sx={{ ml: 1 }} type="submit">
+        <Button
+          variant="contained"
+          sx={{ ml: +!isMobile, mt: +isMobile }}
+          type="submit"
+          fullWidth={isMobile}
+        >
           Add Todo
         </Button>
       </Box>
-      <Box sx={{ display: "flex", mr: 5, ml: 5, mt: 1 }}>
+      <Box
+        sx={{
+          display: "flex",
+          mr: 5,
+          ml: isMobile ? 2 : 5,
+          mt: 1,
+          alignItems: "center",
+        }}
+      >
         <Typography
           sx={{ mr: 2, textShadow: ({ palette }) => palette.custom.textShadow }}
         >

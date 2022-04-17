@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem, Box, TextField } from "@mui/material";
+import { MenuItem, Box, TextField, useTheme } from "@mui/material";
 import { sorts } from "./sorterFuncs";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
@@ -15,8 +15,10 @@ const MenuBox = ({ icon: Icon, children }) => {
 };
 
 const Sorter = ({ sortBy, setSortBy }) => {
+  const { isMobile } = useTheme();
+
   return (
-    <Box sx={{ mt: 2 }}>
+    <Box sx={{ mt: isMobile ? 1 : 2, ml: +isMobile }}>
       <TextField
         select
         value={sortBy}

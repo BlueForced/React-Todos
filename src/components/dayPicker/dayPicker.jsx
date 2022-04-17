@@ -4,27 +4,29 @@ import { Box } from "@mui/material";
 import styled from "@emotion/styled";
 import { DateTime } from "luxon";
 
-const StyledBox = styled(Box)`
-  display: flex;
-  overflow-y: auto;
+const StyledBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  overflowY: "auto",
 
-  ::-webkit-scrollbar {
-    height: 5px;
-  }
+  ...(!theme.isMobile && {
+    "::-webkit-scrollbar": {
+      height: "5px",
+    },
 
-  ::-webkit-scrollbar-track {
-    background: ihnerit;
-  }
+    "::-webkit-scrollbar-track": {
+      background: "ihnerit",
+    },
 
-  ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.palette.custom.dayPickerScroll.thumb};
-    border-radius: 5px;
-  }
+    "::-webkit-scrollbar-thumb": {
+      background: theme.palette.custom.dayPickerScroll.thumb,
+      borderRadius: "5px",
+    },
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: ${({ theme }) => theme.palette.custom.dayPickerScroll.hover};
-  }
-`;
+    "::-webkit-scrollbar-thumb:hover": {
+      background: theme.palette.custom.dayPickerScroll.hover,
+    },
+  }),
+}));
 
 const DayPicker = ({ days, day, setDay }) => {
   const currYear = React.useMemo(() => DateTime.now().year, []);
@@ -34,6 +36,7 @@ const DayPicker = ({ days, day, setDay }) => {
       sx={{
         display: "flex",
         overflowY: "auto",
+        maxWidth: "100vw",
       }}
     >
       {days.map((chipDay) => (

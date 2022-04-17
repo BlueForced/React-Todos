@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Menu, MenuItem } from "@mui/material";
+import { Box, Button, Menu, MenuItem, useTheme } from "@mui/material";
 
 const ClearButton = ({
   children,
@@ -8,6 +8,7 @@ const ClearButton = ({
   onClearAll,
   mr,
   withOptions,
+  isMobile,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState();
   const open = Boolean(anchorEl);
@@ -22,6 +23,7 @@ const ClearButton = ({
         onClick={(e) =>
           withOptions ? setAnchorEl(e.currentTarget) : onClearTab()
         }
+        fullWidth={isMobile}
         sx={mr ? { mr: 1 } : null}
       >
         {children}
@@ -63,6 +65,7 @@ const ClearButton = ({
 };
 
 const ClearOptions = ({ todosTab, todos, setTodos }) => {
+  const { isMobile } = useTheme();
   const filterDone = (key) => ({
     ...todos[key],
     todos: todos[key].todos.filter((todo) => !todo.dateDone),
@@ -99,13 +102,21 @@ const ClearOptions = ({ todosTab, todos, setTodos }) => {
   const withOptions = Object.keys(todos).length > 1;
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        maxHeight: "40px",
+        justifyContent: "space-between",
+        mb: +isMobile,
+      }}
+    >
       <ClearButton
         withOptions={withOptions}
         color="error"
         onClearAll={handleClearAll}
         onClearTab={handleClearTab}
         mr
+        isMobile={isMobile}
       >
         Clear All
       </ClearButton>
@@ -114,6 +125,7 @@ const ClearOptions = ({ todosTab, todos, setTodos }) => {
         color="success"
         onClearAll={handleClearAllDone}
         onClearTab={handleClearTabDone}
+        isMobile={isMobile}
       >
         Clear Done
       </ClearButton>

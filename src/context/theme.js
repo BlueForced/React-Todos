@@ -4,6 +4,7 @@ import {
   createTheme,
   ThemeProvider as MuiThemeProvider,
   GlobalStyles,
+  useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import DarkBg from "../assets/backgrounds/dark.jpg";
@@ -34,11 +35,32 @@ const darkTheme = {
   textShadow: "1px 1px #00000044",
 };
 
+const globals = (currentTheme) => ({
+  body: {
+    backgroundColor: currentTheme.palette.custom.backgroundColor,
+    backgroundImage: currentTheme.palette.custom.backgroundImage,
+    backgroundPosition: "bottom",
+  },
+  input: {
+    textShadow: currentTheme.palette.custom.textShadow,
+  },
+  ".MuiInputLabel-root, .MuiInputBase-input, .MuiButton-outlined": {
+    textShadow: currentTheme.palette.custom.textShadow,
+  },
+});
+
 const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = React.useState(
     () => localStorage.getItem("todosTheme") || "dark"
   );
+
+  const isMobile = useMediaQuery("@media (pointer: none), (pointer: coarse)");
+  const isMobileLandscape =
+    !useMediaQuery("@media (max-width: 720px)") && isMobile;
+
   const currentTheme = createTheme({
+    isMobile,
+    isMobileLandscape,
     palette: { mode: theme, custom: theme === "dark" ? darkTheme : lightTheme },
   });
 
@@ -51,20 +73,7 @@ const ThemeProvider = ({ children }) => {
     <ThemeContext.Provider value={[theme, handleSetTheme]}>
       <MuiThemeProvider theme={currentTheme}>
         <CssBaseline enableColorScheme />
-        <GlobalStyles
-          styles={{
-            body: {
-              backgroundColor: currentTheme.palette.custom.backgroundColor,
-              backgroundImage: currentTheme.palette.custom.backgroundImage,
-            },
-            input: {
-              textShadow: currentTheme.palette.custom.textShadow,
-            },
-            ".MuiInputLabel-root, .MuiInputBase-input, .MuiButton-outlined": {
-              textShadow: currentTheme.palette.custom.textShadow,
-            },
-          }}
-        />
+        <GlobalStyles styles={globals(currentTheme)} />
         {children}
       </MuiThemeProvider>
     </ThemeContext.Provider>

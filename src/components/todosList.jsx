@@ -7,8 +7,8 @@ const TodosList = ({ todos, setTodos }) => {
       sx={{
         mt: 1,
         pb: 1,
-        minHeight: "15vh",
-        maxHeight: "35vh",
+        minHeight: "120px",
+        maxHeight: "37vh",
         overflowY: "auto",
         display: "flex",
         justifyContent: "center",

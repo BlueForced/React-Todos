@@ -6,6 +6,7 @@ const StyledFooter = styled.footer`
   left: 0;
   right: 0;
   text-align: center;
+  display: ${({ theme }) => (theme.isMobile ? "none" : null)};
 `;
 
 const Footer = () => {

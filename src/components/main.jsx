@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button } from "@mui/material";
+import { Box, Button, useTheme as useMuiTheme } from "@mui/material";
 import TodoAdder from "./todoAdder/todoAdder.jsx";
 import TodoList from "./todosList";
 import Sorter from "./sorter/sorter";
@@ -7,6 +7,7 @@ import { sorterFuncs, sorts } from "./sorter/sorterFuncs.js";
 import ClearOptions from "./clearOptions.jsx";
 import DayPicker from "./dayPicker/dayPicker";
 import { useTheme } from "../context/theme";
+import { useKeyboardOpen } from "../context/keyboardOpen.js";
 import { DateTime } from "luxon";
 
 const getLatestTab = (todosArg) => {
@@ -46,6 +47,8 @@ const Main = () => {
   );
   const [sortBy, setSortBy] = React.useState(sorts.dateAdded);
   const [theme, setTheme] = useTheme();
+  const { isMobile } = useMuiTheme();
+  const [keyboardOpen] = useKeyboardOpen();
 
   React.useEffect(() => {
     window.onbeforeunload = () => {
@@ -106,32 +109,56 @@ const Main = () => {
   sortedDays.sort((a, b) => (a > b ? 1 : a < b ? -1 : 0));
 
   return (
-    <Box sx={{ maxWidth: "605px" }}>
-      <TodoAdder addTodo={hanldeAddTodo} />
-      {Object.keys(todos).length ? (
-        <>
-          <DayPicker days={sortedDays} day={todosTab} setDay={setTodosTab} />
-          <Sorter sortBy={sortBy} setSortBy={setSortBy} />
-        </>
-      ) : null}
-      <TodoList todos={sortedTodos} setTodos={handleChangeTodos} />
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
-        <Button
-          variant="outlined"
-          color="secondary"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          {theme === "dark" ? "light" : "dark"} Theme
-        </Button>
+    <Box
+      sx={{
+        maxWidth: "605px",
+        display: "flex",
+        flexGrow: +isMobile,
+        flexDirection: "column",
+        justifyContent: "space-between",
+        width: isMobile ? "100%" : undefined,
+      }}
+    >
+      <Box>
+        <TodoAdder addTodo={hanldeAddTodo} />
         {Object.keys(todos).length ? (
-          <ClearOptions
-            todosTab={todosTab}
-            setTodosTab={setTodosTab}
-            todos={todos}
-            setTodos={setTodos}
-          />
+          <>
+            <DayPicker days={sortedDays} day={todosTab} setDay={setTodosTab} />
+            <Sorter sortBy={sortBy} setSortBy={setSortBy} />
+          </>
         ) : null}
+        <TodoList todos={sortedTodos} setTodos={handleChangeTodos} />
       </Box>
+      {!(keyboardOpen && isMobile) && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: isMobile ? "column-reverse" : "row",
+            justifyContent: "space-between",
+            mt: 1,
+            mb: 1,
+            mr: +isMobile,
+            ml: +isMobile,
+            flexWrap: isMobile ? "wrap" : "no-wrap",
+          }}
+        >
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            {theme === "dark" ? "light" : "dark"} Theme
+          </Button>
+          {Object.keys(todos).length ? (
+            <ClearOptions
+              todosTab={todosTab}
+              setTodosTab={setTodosTab}
+              todos={todos}
+              setTodos={setTodos}
+            />
+          ) : null}
+        </Box>
+      )}
     </Box>
   );
 };
