@@ -20,7 +20,7 @@ const lightTheme = {
   },
   list: "#ffffff99",
   backgroundImage: `url(${LightBg})`,
-  backgroundColor: "#dddddd",
+  backgroundColor: "#d0b3d1",
   textShadow: "",
 };
 
@@ -31,7 +31,7 @@ const darkTheme = {
   },
   list: "#12121299",
   backgroundImage: `url(${DarkBg})`,
-  backgroundColor: "#c962cd",
+  backgroundColor: "#400c9f",
   textShadow: "1px 1px #00000044",
 };
 
@@ -39,7 +39,9 @@ const globals = (currentTheme) => ({
   body: {
     backgroundColor: currentTheme.palette.custom.backgroundColor,
     backgroundImage: currentTheme.palette.custom.backgroundImage,
-    backgroundPosition: "bottom",
+    backgroundSize: currentTheme.isMobile ? "100vw 100vh" : "100vw 120vh",
+    backgroundPosition: currentTheme.isMobile ? "none" : "top",
+    backgroundRepeat: "no-repeat",
   },
   input: {
     textShadow: currentTheme.palette.custom.textShadow,
