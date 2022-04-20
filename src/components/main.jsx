@@ -144,18 +144,8 @@ const Main = () => {
         >
           <Button
             variant="outlined"
-            {...(theme === "light"
-              ? {
-                  color: "info",
-                  sx: {
-                    backgroundColor: ({ palette }) => palette.secondary.dark,
-                  },
-                  onClick: () => setTheme("dark"),
-                }
-              : {
-                  color: "secondary",
-                  onClick: () => setTheme("light"),
-                })}
+            color="secondary"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
             {theme === "dark" ? "light" : "dark"} Theme
           </Button>

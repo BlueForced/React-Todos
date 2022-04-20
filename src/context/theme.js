@@ -7,8 +7,8 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
-import DarkBg from "../assets/backgrounds/dark.jpg";
-import LightBg from "../assets/backgrounds/light.jpg";
+import DarkBg from "../assets/backgrounds/dark.svg";
+import LightBg from "../assets/backgrounds/light.svg";
 
 const ThemeContext = React.createContext();
 ThemeContext.displayName = "themeCtx";
@@ -35,13 +35,13 @@ const darkTheme = {
   textShadow: "1px 1px #00000044",
 };
 
+// TODO: remove backgrounds completely, use CSS Curves!
+
 const globals = (currentTheme) => ({
   body: {
     backgroundColor: currentTheme.palette.custom.backgroundColor,
     backgroundImage: currentTheme.palette.custom.backgroundImage,
-    backgroundSize: currentTheme.isMobile ? "100vw 100vh" : "100vw 120vh",
-    backgroundPosition: currentTheme.isMobile ? "none" : "top",
-    backgroundRepeat: "no-repeat",
+    backgroundSize: `${window.screen.width}px ${window.screen.height}px`,
   },
   input: {
     textShadow: currentTheme.palette.custom.textShadow,
