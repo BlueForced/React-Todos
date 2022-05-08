@@ -13,4 +13,4 @@ A simple Todos client-only app implemented in React
 
 ## Links
 
-- blueforced.github.io/react-todos/
+- https://blueforced.github.io/react-todos/
