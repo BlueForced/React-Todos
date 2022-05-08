@@ -13,4 +13,4 @@ A simple Todos client-only app implemented in React
 
 ## Links
 
-- https://blueforced.github.io/react-calculator/
+- blueforced.github.io/react-todos/
