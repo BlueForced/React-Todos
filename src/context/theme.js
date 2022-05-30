@@ -35,8 +35,6 @@ const darkTheme = {
   textShadow: "1px 1px #00000044",
 };
 
-// TODO: remove backgrounds completely, use CSS Curves!
-
 const globals = (currentTheme) => ({
   body: {
     backgroundColor: currentTheme.palette.custom.backgroundColor,
