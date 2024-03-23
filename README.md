@@ -1,4 +1,4 @@
-# React Typing Speed Test
+# React Todos
 
 A simple Todos client-only app implemented in React
 
